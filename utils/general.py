@@ -26,7 +26,7 @@ def generate_colors(n, max_value=255):
     h = 0.1
     s = 0.5
     v = 0.95
-    for i in range(n):
+    for _ in range(n):
         h = 1 / (h + GOLDEN_RATIO)
         colors.append([c*max_value for c in colorsys.hsv_to_rgb(h, s, v)])
 
@@ -38,11 +38,7 @@ def format_predictions(predicts):
 
 
 def format_notification(predicts):
-    result = []
-    for p in predicts:
-        result.append({key: p[key] for key in NOTIFICATION_KEYS})
-
-    return result
+    return [{key: p[key] for key in NOTIFICATION_KEYS} for p in predicts]
 
 def find_class_by_name(name, modules):
     modules = [getattr(module, name, None) for module in modules]
